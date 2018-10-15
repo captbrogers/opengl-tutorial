@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////
-///
+/// Main.cpp
 ////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -11,27 +11,15 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
+// Other includes
+#include "Shader.h"
+
 // Window Dimensions
 const GLint WIDTH = 800, HEIGHT = 600;
 
-// Shaders
-const GLchar* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 position;\n"
-"void main()\n"
-"{\n"
-"gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-"}\0";
-
-const GLchar* fragmentShaderSource = "#version 330 core\n"
-"out vec4 color;\n"
-"void main()\n"
-"{\n"
-"color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n\0";
-
-int main(int argc, char const *argv[])
+int main( )
 {
-    glfwInit();
+    glfwInit( );
 
     // set all the required options for GLFW
     glfwWindowHint ( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -56,8 +44,10 @@ int main(int argc, char const *argv[])
     }
 
     glfwMakeContextCurrent ( window );
+
     // Set this to true so FLEW knows to use a modern approach to retrieving function points and extensions
     glewExperimental = GL_TRUE;
+
     // Initialize GLEW to setup the OpenGL Function pointers
     if ( GLEW_OK != glewInit( ) )
     {
@@ -69,57 +59,13 @@ int main(int argc, char const *argv[])
     glViewport ( 0, 0, screenWidth, screenHeight );
 
     // Build and compile our shader program
-    // Vertext shader
-    GLuint vertexShader = glCreateShader( GL_VERTEX_SHADER );
-    glShaderSource( vertexShader, 1, &vertexShaderSource, NULL );
-
-    glCompileShader( vertexShader );
-    // check for compile time errors
-    GLint success;
-    GLchar infoLog[512];
-
-    glGetShaderiv( vertexShader, GL_COMPILE_STATUS, &success );
-
-    if ( !success )
-    {
-        glGetShaderInfoLog( vertexShader, 512, NULL, infoLog );
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
-    // Fragment shader
-    GLuint fragmentShader = glCreateShader( GL_FRAGMENT_SHADER );
-    glShaderSource( fragmentShader, 1, &fragmentShaderSource, NULL );
-    glCompileShader( fragmentShader );
-
-    // Check for compile time errors
-    glGetShaderiv( fragmentShader, GL_COMPILE_STATUS, &success );
-    if ( !success )
-    {
-        glGetShaderInfoLog( fragmentShader, 512, NULL, infoLog );
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
-    // Link shaders
-    GLuint shaderProgram = glCreateProgram( );
-    glAttachShader( shaderProgram, vertexShader );
-    glAttachShader( shaderProgram, fragmentShader );
-    glLinkProgram( shaderProgram );
-
-    // Check for linking errors
-    glGetProgramiv( shaderProgram, GL_LINK_STATUS, &success );
-    if ( !success )
-    {
-        glGetProgramInfoLog( shaderProgram, 512, NULL, infoLog );
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
-
-    glDeleteShader( vertexShader );
-    glDeleteShader( fragmentShader );
+    Shader ourShader( "resources/shaders/core.vert", "resources/shaders/core.frag" );
 
     GLfloat vertices[] = {
-        -0.5f, -0.5f, -0.0f, // left
-        0.5f, -0.5f, 0.0f,   // right
-        0.0f, 0.5f, 0.0f     // top
+        // Positions            // Colors
+        0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  // Bottom Right
+        -0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  // Bottom Left
+        0.0f,  0.5f, 0.0f,      0.0f, 0.0f, 1.0f   // Top
     };
 
     GLuint VBO, VAO;
@@ -132,8 +78,13 @@ int main(int argc, char const *argv[])
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW );
 
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    // Position attribute
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glEnableVertexAttribArray( 0 );
+
+    // Color attribute
+    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof( GLfloat ), ( GLvoid * )( 3 * sizeof( GLfloat ) ) );
+    glEnableVertexAttribArray( 1 );
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
     // Note that this is allowed, the call to glVertexAttribPointer
@@ -155,7 +106,7 @@ int main(int argc, char const *argv[])
         glClear( GL_COLOR_BUFFER_BIT );
 
         // Draw our first triangle
-        glUseProgram( shaderProgram );
+        ourShader.Use( );
         glBindVertexArray( VAO );
         glDrawArrays( GL_TRIANGLES, 0, 3 );
         glBindVertexArray( 0 );
