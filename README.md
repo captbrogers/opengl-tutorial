@@ -11,7 +11,7 @@ I will have a branch per chapter to track what the code is as of that chapter, a
 - [x] Chapter 01 - Getting set up and opening a window
 - [ ] Chapter 02 - Drawing shapes and applying textures
   - [x] Drawing a triangle
-  - [ ] Abstracting the shaders
+  - [x] Abstracting the shaders
   - [ ] Loading and applying textures to the shape
 - [ ] Chapter 03 - Transformations, projections, and camera
   - [ ] Transformations using GLM
