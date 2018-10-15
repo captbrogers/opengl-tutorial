@@ -31,3 +31,8 @@ I will have a branch per chapter to track what the code is as of that chapter, a
   - [ ] Creating shaders for the skybox
   - [ ] Modifications to the main C++ file
 
+### Screenshot
+
+A screenshot of the work done so far:
+
+![Progress screenshot](/screenshot.png "Progress")
