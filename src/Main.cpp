@@ -63,9 +63,9 @@ int main( )
 
     GLfloat vertices[] = {
         // Positions            // Colors
-        0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 0.0f,  // Bottom Right
-        -0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  // Bottom Left
-        0.0f,  0.5f, 0.0f,      0.0f, 0.0f, 1.0f   // Top
+        0.5f, -0.5f, 0.0f,      0.39f, 0.11f, 0.70f,  // Bottom Right
+        -0.5f, -0.5f, 0.0f,     0.31f, 0.7f, 0.07f,   // Bottom Left
+        0.0f,  0.5f, 0.0f,      1.0f, 0.46f, 0.26f    // Top
     };
 
     GLuint VBO, VAO;
