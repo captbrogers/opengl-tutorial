@@ -5,16 +5,16 @@ BIN_RELEASE_DIR=bin/Release
 GL_FLAGS=-lGL -lglfw -lGLEW
 
 debug:
-	gcc -Wall -fPIC -pg -g -c src/Main.cpp -o $(DEBUG_DIR)/Main.o
+	gcc -Wall -L./lib -fPIC -pg -g -c src/Main.cpp -o $(DEBUG_DIR)/Main.o
 	g++ -o $(BIN_DEBUG_DIR)/opengl-tutorial \
 	$(DEBUG_DIR)/Main.o \
-	$(GL_FLAGS)
+	$(GL_FLAGS) -lSOIL
 
 release:
-	gcc -Wall -fPIC -O2 -c src/Main.cpp -o $(RELEASE_DIR)/Main.o
+	gcc -Wall -L./lib -fPIC -O2 -c src/Main.cpp -o $(RELEASE_DIR)/Main.o
 	g++ -o $(BIN_RELEASE_DIR)/opengl-tutorial \
 	$(RELEASE_DIR)/Main.o \
-	-s $(GL_FLAGS)
+	-s $(GL_FLAGS) -lSOIL
 
 .PHONY: clean
 
