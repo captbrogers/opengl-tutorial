@@ -25,18 +25,18 @@ int main( )
     glfwInit( );
 
     // set all the required options for GLFW
-    glfwWindowHint ( GLFW_CONTEXT_VERSION_MAJOR, 3 );
-    glfwWindowHint ( GLFW_CONTEXT_VERSION_MINOR, 3 );
-    glfwWindowHint ( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
-    glfwWindowHint ( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
+    glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
+    glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
+    glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+    glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
 
-    glfwWindowHint ( GLFW_RESIZABLE, GL_FALSE );
+    glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
 
     // create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow *window = glfwCreateWindow ( WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr );
+    GLFWwindow *window = glfwCreateWindow( WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr );
 
     int screenWidth, screenHeight;
-    glfwGetFramebufferSize ( window, &screenWidth, &screenHeight );
+    glfwGetFramebufferSize( window, &screenWidth, &screenHeight );
 
     if ( nullptr == window )
     {
@@ -46,7 +46,7 @@ int main( )
         return EXIT_FAILURE;
     }
 
-    glfwMakeContextCurrent ( window );
+    glfwMakeContextCurrent( window );
 
     // Set this to true so FLEW knows to use a modern approach to retrieving function points and extensions
     glewExperimental = GL_TRUE;
@@ -59,7 +59,7 @@ int main( )
     }
 
     // Define the viewport dimensions
-    glViewport ( 0, 0, screenWidth, screenHeight );
+    glViewport( 0, 0, screenWidth, screenHeight );
 
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -69,15 +69,15 @@ int main( )
 
     GLfloat vertices[] = {
         // Positions          // Colors           // Texture Coords
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
+        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
         -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
         -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left
     };
 
     GLuint indices[] = {
-        0, 1, 3,  // First Triangle
-        1, 2, 3   // Second Triangle
+        0, 1, 3, // First Triangle
+        1, 2, 3  // Second Triangle
     };
 
     GLuint VBO, VAO, EBO;
@@ -95,11 +95,11 @@ int main( )
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( indices ), indices, GL_STATIC_DRAW );
 
     // Position attribute
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glEnableVertexAttribArray( 0 );
 
     // Color attribute
-    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof( GLfloat ), ( GLvoid * )( 3 * sizeof( GLfloat ) ) );
+    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )( 3 * sizeof( GLfloat ) ) );
     glEnableVertexAttribArray( 1 );
 
     glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid * )( 6 * sizeof( GLfloat ) ) );
@@ -128,7 +128,7 @@ int main( )
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 
     // Load the image, create a texture from it
-    unsigned char *image = SOIL_load_image( "resources/images/image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA );
+    unsigned char *image = SOIL_load_image( "resources/images/unsplash_image1.jpg", &width, &height, 0, SOIL_LOAD_RGBA );
     std::cout << "SOIL_load_image *image = " << SOIL_last_result() << std::endl;
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image );
 
