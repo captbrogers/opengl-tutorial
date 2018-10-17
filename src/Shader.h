@@ -17,6 +17,7 @@ class Shader
 public:
     GLuint Program;
 
+    // Constructor generates the shader on the fly
     Shader( const GLchar *vertexPath, const GLchar *fragmentPath )
     {
         // Retrieve the vertex/fragment source from filePath
@@ -57,7 +58,6 @@ public:
         const GLchar *fShaderCode = fragmentCode.c_str( );
 
         // Compile Shaders
-        
         GLuint vertex, fragment;
         GLint success;
         GLchar infoLog[512];
