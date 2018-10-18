@@ -9,10 +9,10 @@ I will have a branch per chapter to track what the code is as of that chapter, a
 ### Progress
 
 - [x] Chapter 01 - Getting set up and opening a window
-- [ ] Chapter 02 - Drawing shapes and applying textures
+- [x] Chapter 02 - Drawing shapes and applying textures
   - [x] Drawing a triangle
   - [x] Abstracting the shaders
-  - [ ] Loading and applying textures to the shape
+  - [x] Loading and applying textures to the shape
 - [ ] Chapter 03 - Transformations, projections, and camera
   - [ ] Transformations using GLM
   - [ ] Projections and coordinate systems
