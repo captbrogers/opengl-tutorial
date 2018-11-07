@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <ctime>
-#include <random>
 
 // GLEW
 #define GLEW_STATIC
@@ -149,19 +148,6 @@ int main( )
     SOIL_free_image_data( image );
     glBindTexture( GL_TEXTURE_2D, 0 );
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution<float> distribution(-0.5, 0.5);
-
-    float x_offset = distribution(generator);
-    std::cout << "x_offset: " << x_offset << std::endl;
-
-    float y_offset = distribution(generator);
-    std::cout << "y_offset: " << y_offset << std::endl;
-
-    std::uniform_real_distribution<float> s_distribution(-5.0, -1.0);
-    float rotation_speed = s_distribution(generator);
-    std::cout << "rotation_speed: " << rotation_speed << std::endl;
-
     // Game loop
     while ( !glfwWindowShouldClose( window ) )
     {
@@ -178,8 +164,8 @@ int main( )
 
         // Create transformations
         glm::mat4 transform;
-        transform = glm::translate( transform, glm::vec3( x_offset, y_offset, 0.0f ) );
-        transform = glm::rotate( transform, ( GLfloat )glfwGetTime( ) * rotation_speed, glm::vec3( 0.0f, 0.0f, 1.0f ) );
+        transform = glm::translate( transform, glm::vec3( 0.25f, -0.25f, 0.0f ) );
+        transform = glm::rotate( transform, ( GLfloat )glfwGetTime( ) * -2.0f, glm::vec3( 0.0f, 0.0f, 1.0f ) );
         
         // Get matrix's uniform location and set matrix
         GLint transformLocation = glGetUniformLocation( ourShader.Program, "transform" );
