@@ -13,10 +13,10 @@ I will have a branch per chapter to track what the code is as of that chapter, a
   - [x] Drawing a triangle
   - [x] Abstracting the shaders
   - [x] Loading and applying textures to the shape
-- [ ] Chapter 03 - Transformations, projections, and camera
+- [x] Chapter 03 - Transformations, projections, and camera
   - [x] Transformations using GLM
-  - [ ] Projections and coordinate systems
-  - [ ] Adding a Camera class to the project
+  - [x] Projections and coordinate systems
+  - [x] Adding a Camera class to the project
 - [ ] Chapter 04 - Effects of lighting, materials, and lightmaps
   - [ ] Adding an object and a light source
   - [ ] Lighting up objects

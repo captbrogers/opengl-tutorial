@@ -1,7 +1,3 @@
-////////////////////////////////////////////////////////////////
-///
-////////////////////////////////////////////////////////////////
-
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -49,7 +45,7 @@ public:
             vertexCode = vShaderStream.str( );
             fragmentCode = fShaderStream.str( );
         }
-        catch ( std::ifstream::failure& )
+        catch ( std::ifstream::failure e )
         {
             std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
         }

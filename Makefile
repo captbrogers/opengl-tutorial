@@ -5,13 +5,13 @@ BIN_RELEASE_DIR=bin/Release
 LINKER_FLAGS=-lGL -lglfw -lGLEW -lSOIL
 
 debug:
-	gcc -Wall -fPIC -pg -g -c src/Main.cpp -o $(DEBUG_DIR)/Main.o
+	gcc -std=c++14 -Wall -fPIC -pg -g -c src/Main.cpp -o $(DEBUG_DIR)/Main.o
 	g++ -o $(BIN_DEBUG_DIR)/opengl-tutorial \
 	$(DEBUG_DIR)/Main.o \
 	$(LINKER_FLAGS)
 
 release:
-	gcc -Wall -fPIC -O2 -c src/Main.cpp -o $(RELEASE_DIR)/Main.o
+	gcc -std=c++14 -Wall -fPIC -O2 -c src/Main.cpp -o $(RELEASE_DIR)/Main.o
 	g++ -o $(BIN_RELEASE_DIR)/opengl-tutorial \
 	$(RELEASE_DIR)/Main.o \
 	-s $(LINKER_FLAGS)
