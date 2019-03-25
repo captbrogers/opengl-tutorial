@@ -18,7 +18,7 @@ I will have a branch per chapter to track what the code is as of that chapter, a
   - [x] Projections and coordinate systems
   - [x] Adding a Camera class to the project
 - [ ] Chapter 04 - Effects of lighting, materials, and lightmaps
-  - [ ] Adding an object and a light source
+  - [x] Adding an object and a light source
   - [ ] Lighting up objects
   - [ ] Materials
   - [ ] Lightmaps
