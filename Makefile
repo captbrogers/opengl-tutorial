@@ -1,25 +1,27 @@
-DEBUG_DIR=builds/Debug
-BIN_DEBUG_DIR=bin/Debug
-RELEASE_DIR=builds/Release
-BIN_RELEASE_DIR=bin/Release
-LINKER_FLAGS=-lGL -lglfw -lGLEW -lSOIL
+BUILD_TYPE := Debug
+BUILD_DIR = builds/$(BUILD_TYPE)
+BIN_DIR = bin/$(BUILD_TYPE)
+CXXFLAGS = -std=c++14 -Wall -fPIC -pg
+ifeq ($(BUILD_TYPE),Debug)
+    CXXFLAGS += -g
+endif
+LDFLAGS = -lGL -lglfw -lGLEW -lSOIL
 
-debug:
-	gcc -std=c++14 -Wall -fPIC -pg -g -c src/Main.cpp -o $(DEBUG_DIR)/Main.o
-	g++ -o $(BIN_DEBUG_DIR)/opengl-tutorial \
-	$(DEBUG_DIR)/Main.o \
-	$(LINKER_FLAGS)
+ALL: $(BIN_DIR)/opengl-tutorial
 
-release:
-	gcc -std=c++14 -Wall -fPIC -O2 -c src/Main.cpp -o $(RELEASE_DIR)/Main.o
-	g++ -o $(BIN_RELEASE_DIR)/opengl-tutorial \
-	$(RELEASE_DIR)/Main.o \
-	-s $(LINKER_FLAGS)
+$(BIN_DIR)/opengl-tutorial: $(BUILD_DIR)/Main.o $(BIN_DIR)
+	g++ -o $(BIN_DIR)/opengl-tutorial $(BUILD_DIR)/Main.o $(LDFLAGS)
+
+$(BUILD_DIR)/Main.o: src/Main.cpp $(BUILD_DIR)
+	g++ $(CXXFLAGS) -c src/Main.cpp -o $(BUILD_DIR)/Main.o
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
 .PHONY: clean
 
 clean:
-	rm -rf $(DEBUG_DIR)/*
-	rm -rf $(BIN_DEBUG_DIR)/*
-	rm -rf $(RELEASE_DIR)/*
-	rm -rf $(BIN_RELEASE_DIR)/*
+	rm -rf builds bin
